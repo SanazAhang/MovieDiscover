@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hamipishgaman.moviediscover.R
 import com.hamipishgaman.moviediscover.databinding.FragmentMovieListBinding
 import com.hamipishgaman.moviediscover.domain.model.Model
+import com.hamipishgaman.moviediscover.domain.model.MovieDetail
 import com.hamipishgaman.moviediscover.domain.usecase.movie.DateFilter
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -26,8 +27,9 @@ class MovieListFragment : Fragment(), View.OnClickListener {
     private val viewModel: ListMovieViewModel by viewModels()
     private val datePickerTo = 0
     private val datePickerFrom = 1
-    private lateinit var dateTo: String
-    private lateinit var dateFrom: String
+    private val movieAdapter = MovieAdapter()
+    private var dateTo: String? = null
+    private var dateFrom: String? = null
     private lateinit var fromDateSetListener: DatePickerDialog.OnDateSetListener
     private lateinit var toDateSetListener: DatePickerDialog.OnDateSetListener
 
@@ -50,9 +52,6 @@ class MovieListFragment : Fragment(), View.OnClickListener {
                 updateDateInView(datePickerTo)
             }
 
-        val movieAdapter = MovieAdapter(MovieListener { movie ->
-            navigateToMovieDetail(movie)
-        })
 
         binding!!.recyclerViewMovie.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -64,6 +63,13 @@ class MovieListFragment : Fragment(), View.OnClickListener {
         binding!!.buttonToDate.setOnClickListener(this)
         binding!!.buttonSetFilter.setOnClickListener(this)
 
+        movieAdapter.setOnItemClickListener(object : MovieAdapter.ClickListener{
+            override fun onClick(movie: Model.Movie) {
+                super.onClick(movie)
+                navigateToMovieDetail(movie)
+            }
+        })
+
         viewModel.loading.observe(viewLifecycleOwner, { loading ->
 
             if (loading) {
@@ -73,14 +79,13 @@ class MovieListFragment : Fragment(), View.OnClickListener {
             }
         })
 
+
         viewModel.error.observe(viewLifecycleOwner, { throwable ->
             Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT).show()
         })
 
         viewModel.movies.observe(viewLifecycleOwner, {
             movieAdapter.submitList(it)
-            val layoutManager = binding!!.recyclerViewMovie.layoutManager
-            layoutManager?.smoothScrollToPosition(binding!!.recyclerViewMovie, null, 0)
         })
 
         viewModel.failure.observe(viewLifecycleOwner, { message ->
@@ -89,8 +94,9 @@ class MovieListFragment : Fragment(), View.OnClickListener {
     }
 
     private fun navigateToMovieDetail(movie: Model.Movie) {
-        NavHostFragment.findNavController(this)
-            .navigate(R.id.action_movieListFragment_to_movieDetailFragment)
+        val movieDetail = MovieDetail(movie.id,movie.title,movie.overView,movie.posterURL,movie.releaseDate,movie.voteAverage)
+        val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(movieDetail)
+        findNavController().navigate(action)
     }
 
     override fun onCreateView(
@@ -121,8 +127,10 @@ class MovieListFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.button_set_filter -> {
-                val dateFilter = DateFilter(dateFrom, dateTo)
-                viewModel.refresh(dateFilter)
+                if(!dateFrom.isNullOrEmpty() || !dateTo.isNullOrEmpty()) {
+                    val dateFilter = DateFilter(dateFrom, dateTo)
+                    viewModel.refresh(dateFilter)
+                }
             }
         }
     }

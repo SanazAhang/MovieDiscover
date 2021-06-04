@@ -13,7 +13,5 @@ fun loadImage(view: ImageView, posterUrl: String) {
     Glide.with(view.context)
         .load(correctPosterUrl)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
-
         .into(view)
-
 }

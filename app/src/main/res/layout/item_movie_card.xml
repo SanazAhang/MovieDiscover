@@ -8,12 +8,10 @@
         <variable
             name="movie"
             type="com.hamipishgaman.moviediscover.domain.model.Model.Movie" />
-        <variable
-            name="clickListener"
-            type="com.hamipishgaman.moviediscover.ui.movielist.MovieListener" />
-    </data>
+           </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/movie_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin16dp"
@@ -21,7 +19,6 @@
         android:layout_marginEnd="@dimen/margin16dp"
         android:background="@color/HelioTrope"
         android:paddingTop="@dimen/margin8dp"
-        android:onClick="@{() -> clickListener.onClick(movie)}"
         android:paddingBottom="@dimen/margin16dp"
         >
 

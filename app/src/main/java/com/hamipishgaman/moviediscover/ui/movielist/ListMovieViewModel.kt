@@ -34,9 +34,9 @@ class ListMovieViewModel @Inject constructor(
 
 
     init {
-         val currentDate = null
-         val startDate = null
-         val dateFilter = DateFilter(startDate,currentDate)
+        val currentDate = null
+        val startDate = null
+        val dateFilter = DateFilter(startDate, currentDate)
         refresh(dateFilter)
         viewModelScope.launch {
             movieGetUseCase.execute(Unit).collect {
@@ -47,24 +47,24 @@ class ListMovieViewModel @Inject constructor(
 
     }
 
-     fun refresh(dateFilter:DateFilter) {
+    fun refresh(dateFilter: DateFilter) {
         _loading.postValue(true)
         viewModelScope.launch {
             val resourceData = movieRefreshUseCase.execute(dateFilter)
             when (resourceData) {
-                //TODO change to value
+
                 is ResultData.Success -> {
-                    _loading.postValue(false)
+                    _loading.value = false
                     _movies.value = resourceData.value
 
                 }
                 is ResultData.Failure -> {
-                    _loading.postValue(false)
-                    _failure.postValue(resourceData.message)
+                    _loading.value = false
+                    _failure.value = resourceData.message
                 }
                 is ResultData.Error -> {
-                    _loading.postValue(false)
-                    _error.postValue(resourceData.throwable)
+                    _loading.value = false
+                    _error.value = resourceData.throwable
                 }
                 else -> {
                 }

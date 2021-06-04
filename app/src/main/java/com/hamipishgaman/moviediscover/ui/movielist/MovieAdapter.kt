@@ -1,6 +1,7 @@
 package com.hamipishgaman.moviediscover.ui.movielist
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -8,16 +9,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hamipishgaman.moviediscover.databinding.ItemMovieCardBinding
 import com.hamipishgaman.moviediscover.domain.model.Model
 
-class MovieAdapter(val clickListener: MovieListener) :
+class MovieAdapter:
     ListAdapter<Model.Movie, MovieAdapter.MovieViewHolder>(DiffCallback()) {
+    lateinit var listener: ClickListener
 
-    class MovieViewHolder(private val binding: ItemMovieCardBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: Model.Movie, clickListener: MovieListener) = with(itemView) {
+    inner class MovieViewHolder(private val binding: ItemMovieCardBinding,var listener: ClickListener) :
+        RecyclerView.ViewHolder(binding.root),View.OnClickListener {
+
+        lateinit var movieDetail: Model.Movie
+
+        fun bind(movie: Model.Movie) = with(itemView) {
+            movieDetail = movie
             binding.movie = movie
-            binding.clickListener = clickListener
-            setOnClickListener {
-                // TODO: Handle on click
+        }
+
+        init {
+            binding.movieItem.setOnClickListener(this)
+        }
+
+        override fun onClick(view: View?) {
+            if (view != null) {
+                listener.onClick(movieDetail)
             }
         }
     }
@@ -28,17 +40,22 @@ class MovieAdapter(val clickListener: MovieListener) :
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            listener
         )
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(getItem(position),clickListener)
+        holder.bind(getItem(position))
     }
-}
 
-class MovieListener(val clickListener: (movie: Model.Movie) -> Unit) {
-    fun onClick(movie: Model.Movie) = clickListener(movie)
+    fun setOnItemClickListener(aClickListener: Any) {
+        listener = aClickListener as ClickListener
+    }
+
+    interface ClickListener {
+        fun onClick(movie:Model.Movie){}
+    }
 }
 
 class DiffCallback : DiffUtil.ItemCallback<Model.Movie>() {

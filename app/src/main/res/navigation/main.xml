@@ -7,13 +7,20 @@
     <fragment
         android:id="@+id/movieListFragment"
         android:name="com.hamipishgaman.moviediscover.ui.movielist.MovieListFragment"
-        android:label="MovieListFragment" >
+        android:label="MovieListFragment">
         <action
             android:id="@+id/action_movieListFragment_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
+            app:destination="@id/movieDetailFragment">
+             </action>
+
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
         android:name="com.hamipishgaman.moviediscover.ui.moviedetail.MovieDetailFragment"
-        android:label="MovieDetailFragment" />
+        android:label="MovieDetailFragment" >
+
+        <argument
+            android:name="movie"
+            app:argType="com.hamipishgaman.moviediscover.domain.model.MovieDetail" />
+    </fragment>
 </navigation>

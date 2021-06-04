@@ -1,97 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/HelioTrope"
-    tools:context=".ui.moviedetail.MovieDetailFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+        <data>
+                <variable
+                    name="movie"
+                    type="com.hamipishgaman.moviediscover.domain.model.MovieDetail" />
 
-        <ImageView
-            android:id="@+id/image_view_movie"
+        </data>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin16dp"
-            android:layout_marginTop="@dimen/margin16dp"
-            android:layout_marginEnd="@dimen/margin16dp"
-            android:contentDescription="TODO"
-            android:src="@color/light_steel_blue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.5"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-
-            />
-
-        <TextView
-            android:id="@+id/movie_title"
-            style="@style/titleBold14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin8dp"
-            android:text="@string/name"
-            app:layout_constraintStart_toStartOf="@+id/image_view_movie"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_movie" />
-
-        <TextView
-            android:id="@+id/date"
-            style="@style/titleBold14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/publish_date"
-            app:layout_constraintStart_toStartOf="@+id/image_view_movie"
-            app:layout_constraintTop_toBottomOf="@+id/movie_title" />
-
-        <TextView
-            android:id="@+id/summery"
-            style="@style/titleBold14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin8dp"
-            android:text="@string/summery"
-            app:layout_constraintStart_toStartOf="@+id/image_view_movie"
-            app:layout_constraintTop_toBottomOf="@+id/date" />
-
-        <TextView
-            android:id="@+id/text_view_movie_title"
-            style="@style/titleItalic14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin8dp"
-            android:lines="1"
-            android:text="@{movie.title}"
-            app:layout_constraintEnd_toEndOf="@+id/image_view_movie"
-            app:layout_constraintStart_toEndOf="@+id/movie_title"
-            app:layout_constraintTop_toTopOf="@+id/movie_title"
-            tools:text="@string/name" />
-
-        <TextView
-            android:id="@+id/text_view_publish_date"
-            style="@style/titleItalic14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin8dp"
-            android:text="@{movie.releaseDate}"
-            app:layout_constraintStart_toEndOf="@+id/date"
-            app:layout_constraintTop_toTopOf="@+id/date"
-            tools:text="@string/publish_date" />
-
-        <TextView
-            android:id="@+id/text_view_summery"
-            style="@style/titleItalic14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin8dp"
-            android:text="@{movie.overView}"
-            app:layout_constraintEnd_toEndOf="@+id/image_view_movie"
-            app:layout_constraintStart_toEndOf="@+id/summery"
-            app:layout_constraintTop_toTopOf="@+id/summery"
-            tools:text="@string/summery" />
+            android:layout_height="match_parent"
+            android:background="@color/HelioTrope"
+            tools:context=".ui.moviedetail.MovieDetailFragment">
 
 
+                <ImageView
+                    android:id="@+id/image_view_movie"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/margin16dp"
+                    android:layout_marginTop="@dimen/margin16dp"
+                    android:layout_marginEnd="@dimen/margin16dp"
+                    android:contentDescription="TODO"
+                    android:src="@color/light_steel_blue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.5"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:movieImage="@{movie.posterURL}"
+                    />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/movie_title"
+                    style="@style/titleBold14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin8dp"
+                    android:text="@string/name"
+                    app:layout_constraintStart_toStartOf="@+id/image_view_movie"
+                    app:layout_constraintTop_toBottomOf="@+id/image_view_movie" />
+
+                <TextView
+                    android:id="@+id/date"
+                    style="@style/titleBold14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/publish_date"
+                    app:layout_constraintStart_toStartOf="@+id/image_view_movie"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_title" />
+
+                <TextView
+                    android:id="@+id/summery"
+                    style="@style/titleBold14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin8dp"
+                    android:text="@string/summery"
+                    app:layout_constraintStart_toStartOf="@+id/image_view_movie"
+                    app:layout_constraintTop_toBottomOf="@+id/date" />
+
+                <TextView
+                    android:id="@+id/text_view_movie_title"
+                    style="@style/titleItalic14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin8dp"
+                    android:lines="1"
+                    android:text="@{movie.title}"
+                    app:layout_constraintEnd_toEndOf="@+id/image_view_movie"
+                    app:layout_constraintStart_toEndOf="@+id/movie_title"
+                    app:layout_constraintTop_toTopOf="@+id/movie_title"
+                    tools:text="@string/name" />
+
+                <TextView
+                    android:id="@+id/text_view_publish_date"
+                    style="@style/titleItalic14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin8dp"
+                    android:text="@{movie.releaseDate}"
+                    app:layout_constraintStart_toEndOf="@+id/date"
+                    app:layout_constraintTop_toTopOf="@+id/date"
+                    tools:text="@string/publish_date" />
+
+                <TextView
+                    android:id="@+id/text_view_summery"
+                    style="@style/titleItalic14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin8dp"
+                    android:text="@{movie.overView}"
+                    app:layout_constraintEnd_toEndOf="@+id/image_view_movie"
+                    app:layout_constraintStart_toEndOf="@+id/summery"
+                    app:layout_constraintTop_toTopOf="@+id/summery"
+                    tools:text="@string/summery" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
