@@ -5,11 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="movie"
-            type="com.example.nytimesmovie.data.model.Model.Movie" />
-
+            type="com.hamipishgaman.moviediscover.domain.model.Model.Movie" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +32,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:movieImage="@{movie.Multimedia.imageURL}" />
+            app:movieImage="@{movie.posterURL}" />
 
         <TextView
             android:id="@+id/movie_title"
@@ -73,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin8dp"
             android:lines="1"
-            android:text="@{movie.displayTitle}"
+            android:text="@{movie.title}"
             app:layout_constraintEnd_toEndOf="@+id/image_view_movie"
             app:layout_constraintStart_toEndOf="@+id/movie_title"
             app:layout_constraintTop_toTopOf="@+id/movie_title"
@@ -85,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin8dp"
-            android:text="@{movie.publicationDate}"
+            android:text="@{movie.releaseDate}"
             app:layout_constraintStart_toEndOf="@+id/date"
             app:layout_constraintTop_toTopOf="@+id/date"
             tools:text="@string/publish_date" />
@@ -97,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin8dp"
             android:lines="3"
-            android:text="@{movie.shortSummery}"
+            android:text="@{movie.overView}"
             app:layout_constraintEnd_toEndOf="@+id/image_view_movie"
             app:layout_constraintStart_toEndOf="@+id/summery"
             app:layout_constraintTop_toTopOf="@+id/summery"
