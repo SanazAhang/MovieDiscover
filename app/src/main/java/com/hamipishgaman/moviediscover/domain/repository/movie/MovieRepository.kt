@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface MovieRepository :
     Repository<Model.Movie> {
 
-    suspend fun refresh(releaseDateGTE:String,releaseDateLTE: String): ResultData<List<Model.Movie>>
+    suspend fun refresh(releaseDateGTE:String?,releaseDateLTE: String?): ResultData<List<Model.Movie>>
 
     fun get(): Flow<List<Model.Movie>>
 }

@@ -9,6 +9,6 @@ interface MovieApi {
     @GET("discover/movie")
     suspend fun getMovies(
         @Query("api_key") ApiKey:String,
-        @Query("release_date.gte")releaseDateGTE:String,
-        @Query("release_date.lte")releaseDateLTE: String): Response<Dto.Result>
+        @Query("release_date.gte")releaseDateGTE:String?,
+        @Query("release_date.lte")releaseDateLTE: String?): Response<Dto.Result>
 }

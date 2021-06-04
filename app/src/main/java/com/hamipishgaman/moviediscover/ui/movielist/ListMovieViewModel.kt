@@ -1,4 +1,4 @@
-package com.hamipishgaman.moviediscover.ui
+package com.hamipishgaman.moviediscover.ui.movielist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,8 +12,6 @@ import com.hamipishgaman.moviediscover.domain.usecase.movie.MovieRefreshUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,9 +34,8 @@ class ListMovieViewModel @Inject constructor(
 
 
     init {
-         val sdf = SimpleDateFormat.getDateInstance()
-         val currentDate: String = sdf.format(Date())
-         val startDate = "1990.1.1"
+         val currentDate = null
+         val startDate = null
          val dateFilter = DateFilter(startDate,currentDate)
         refresh(dateFilter)
         viewModelScope.launch {
@@ -50,11 +47,12 @@ class ListMovieViewModel @Inject constructor(
 
     }
 
-    private fun refresh(dateFilter:DateFilter) {
-        _loading.postValue(false)
+     fun refresh(dateFilter:DateFilter) {
+        _loading.postValue(true)
         viewModelScope.launch {
             val resourceData = movieRefreshUseCase.execute(dateFilter)
             when (resourceData) {
+                //TODO change to value
                 is ResultData.Success -> {
                     _loading.postValue(false)
                     _movies.value = resourceData.value

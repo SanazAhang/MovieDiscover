@@ -33,7 +33,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_from_date"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
         style="@style/titleItalic14Light"
@@ -46,7 +46,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_to_date"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="16dp"
@@ -57,19 +57,43 @@
         app:layout_constraintStart_toStartOf="@+id/guid_line1"
         app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_set_filter"
+        style="@style/titleItalic14Black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin16dp"
+        android:layout_marginEnd="@dimen/margin16dp"
+        android:text="@string/submit_filter"
+        app:backgroundTint="@color/emerald"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_to_date"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_movie"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin16dp"
-        android:layout_marginTop="@dimen/margin16dp"
         android:layout_marginEnd="@dimen/margin16dp"
+        android:layout_marginTop="@dimen/margin16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_from_date"
+        app:layout_constraintTop_toBottomOf="@+id/button_set_filter"
         app:layout_constraintVertical_bias="0.0"
         tools:itemCount="3"
         tools:listitem="@layout/item_movie_card" />
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

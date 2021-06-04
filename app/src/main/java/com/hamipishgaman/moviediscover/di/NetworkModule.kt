@@ -1,5 +1,6 @@
 package com.hamipishgaman.moviediscover.di
 
+import com.hamipishgaman.moviediscover.BuildConfig
 import com.hamipishgaman.moviediscover.data.network.api.MovieApi
 import dagger.Module
 import dagger.Provides
@@ -15,6 +16,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+
     @Singleton
     @Provides
     fun movieAPi(retrofit: Retrofit): MovieApi =
@@ -25,7 +27,7 @@ object NetworkModule {
     @Provides
     fun retrofit(httpClient: OkHttpClient, moshiConverterFactory: MoshiConverterFactory): Retrofit =
         Retrofit.Builder()
-            .baseUrl("https://api.nytimes.com/")
+            .baseUrl(BuildConfig.BASE_URL)
             .client(httpClient)
             .addConverterFactory(moshiConverterFactory)
             .build()

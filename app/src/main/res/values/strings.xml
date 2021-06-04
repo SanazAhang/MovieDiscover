@@ -5,8 +5,12 @@
     <string name="toolbar_title">Movie Discover</string>
     <string name="date_title">Date:</string>
     <string name="button_from_date">From:</string>
+    <string name="button_from_set_date">From: %1$s</string>
+
     <string name="button_to_date">To:</string>
+    <string name="button_to_set_date">To: %1$s</string>
     <string name="name">Name:</string>
     <string name="summery">Summery:</string>
     <string name="publish_date">Publish Date:</string>
+    <string name="submit_filter">Submit Filter</string>
 </resources>

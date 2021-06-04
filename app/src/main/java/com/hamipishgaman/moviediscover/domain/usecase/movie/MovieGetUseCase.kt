@@ -10,6 +10,5 @@ class MovieGetUseCase(private val movieRepository: MovieRepository) :
     BaseUseCase<Unit, Flow<List<Model.Movie>>> {
     override suspend fun execute(input: Unit): Flow<List<Model.Movie>> =
         movieRepository.get()
-
 }
 

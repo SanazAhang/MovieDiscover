@@ -8,13 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hamipishgaman.moviediscover.databinding.ItemMovieCardBinding
 import com.hamipishgaman.moviediscover.domain.model.Model
 
-class MovieAdapter : ListAdapter<Model.Movie, MovieAdapter.MovieViewHolder>(DiffCallback()) {
+class MovieAdapter(val clickListener: MovieListener) :
+    ListAdapter<Model.Movie, MovieAdapter.MovieViewHolder>(DiffCallback()) {
 
     class MovieViewHolder(private val binding: ItemMovieCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: Model.Movie) = with(itemView) {
+        fun bind(movie: Model.Movie, clickListener: MovieListener) = with(itemView) {
             binding.movie = movie
-
+            binding.clickListener = clickListener
             setOnClickListener {
                 // TODO: Handle on click
             }
@@ -32,8 +33,12 @@ class MovieAdapter : ListAdapter<Model.Movie, MovieAdapter.MovieViewHolder>(Diff
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position),clickListener)
     }
+}
+
+class MovieListener(val clickListener: (movie: Model.Movie) -> Unit) {
+    fun onClick(movie: Model.Movie) = clickListener(movie)
 }
 
 class DiffCallback : DiffUtil.ItemCallback<Model.Movie>() {

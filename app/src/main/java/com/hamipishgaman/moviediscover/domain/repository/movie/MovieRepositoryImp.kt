@@ -15,8 +15,8 @@ class MovieRepositoryImp @Inject constructor(
 ) : MovieRepository {
 
     override suspend fun refresh(
-        releaseDateGTE: String,
-        releaseDateLTE: String
+        releaseDateGTE: String?,
+        releaseDateLTE: String?
     ): ResultData<List<Model.Movie>> {
         return movieRemoteSource.getData(releaseDateGTE, releaseDateLTE).onSuccess {
             movieLocalDataSource.persist(it)

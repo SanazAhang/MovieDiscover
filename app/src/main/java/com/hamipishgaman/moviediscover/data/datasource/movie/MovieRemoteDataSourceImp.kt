@@ -12,8 +12,8 @@ class MovieRemoteDataSourceImp (private val movieAPI:MovieApi):
     private val apiKey = "c988e17128ee22ab8bda0b967e5653d2"
 
     override suspend fun getData(
-        releaseDateGTE: String,
-        releaseDateLTE: String
+        releaseDateGTE: String?,
+        releaseDateLTE: String?
     ): ResultData<List<Model.Movie>> = execute{
         movieAPI.getMovies(apiKey,releaseDateGTE,releaseDateLTE)
     }.map { result ->
