@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MovieDiscover</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="toolbar_title">Movie Discover</string>
+    <string name="date_title">Date:</string>
+    <string name="button_from_date">From:</string>
+    <string name="button_to_date">To:</string>
+    <string name="name">Name:</string>
+    <string name="summery">Summery:</string>
+    <string name="publish_date">Publish Date:</string>
+</resources>

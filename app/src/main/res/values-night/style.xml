@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearanceSns24lightBlue" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/font_large_24</item>
+        <item name="android:textColor">@color/light_steel_blue</item>
+    </style>
+
+    <style name="titleBold14" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/font_small_14</item>
+        <item name="android:textColor">@color/light_steel_blue</item>
+    </style>
+
+    <style name="titleItalic14" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">serif</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">@dimen/font_small_14</item>
+        <item name="android:textColor">@color/light_steel_blue</item>
+    </style>
+
+    <style name="titleItalic14Black" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">serif</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">@dimen/font_small_14</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
+</resources>
