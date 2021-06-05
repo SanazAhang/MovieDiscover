@@ -92,13 +92,15 @@
                     android:id="@+id/text_view_summery"
                     style="@style/titleItalic14"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginStart="@dimen/margin8dp"
                     android:text="@{movie.overView}"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/image_view_movie"
                     app:layout_constraintStart_toEndOf="@+id/summery"
                     app:layout_constraintTop_toTopOf="@+id/summery"
-                    tools:text="@string/summery" />
+                    tools:text="@string/summery"
+                    android:layout_marginBottom="@dimen/margin16dp"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

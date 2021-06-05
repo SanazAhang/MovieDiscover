@@ -35,7 +35,7 @@ class MovieListFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding!!.progressbar.visibility = View.GONE
         fromDateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 calendar.set(Calendar.YEAR, year)
@@ -63,39 +63,71 @@ class MovieListFragment : Fragment(), View.OnClickListener {
         binding!!.buttonToDate.setOnClickListener(this)
         binding!!.buttonSetFilter.setOnClickListener(this)
 
-        movieAdapter.setOnItemClickListener(object : MovieAdapter.ClickListener{
+        movieAdapter.setOnItemClickListener(object : MovieAdapter.ClickListener {
             override fun onClick(movie: Model.Movie) {
                 super.onClick(movie)
                 navigateToMovieDetail(movie)
             }
         })
 
-        viewModel.loading.observe(viewLifecycleOwner, { loading ->
+        viewModel.movies.observe(viewLifecycleOwner, ::onGetMovie)
 
-            if (loading) {
+        viewModel.loading.observe(viewLifecycleOwner, ::onLoading)
+
+        viewModel.error.observe(viewLifecycleOwner, ::onError)
+
+        viewModel.failure.observe(viewLifecycleOwner, ::onFailure)
+    }
+
+    private fun onGetMovie(event: ConsumableValue<List<Model.Movie>>) {
+       event.consume {
+           movieAdapter.submitList(it)
+           val layoutManager = binding?.recyclerViewMovie?.layoutManager
+           layoutManager?.smoothScrollToPosition( binding?.recyclerViewMovie,null,0)
+           if (!dateFrom.isNullOrEmpty() || !dateTo.isNullOrEmpty()) {
+               binding!!.buttonFromDate.text = getString(R.string.button_from_set_date, dateFrom)
+               binding!!.buttonToDate.text = getString(R.string.button_to_set_date, dateTo)
+           }
+
+       }
+    }
+
+    private fun onLoading(event: ConsumableValue<Boolean>) {
+        event.consume {
+            if (it) {
                 binding!!.progressbar.visibility = View.VISIBLE
             } else {
                 binding!!.progressbar.visibility = View.GONE
             }
-        })
+        }
+    }
 
+    private fun onError(event: ConsumableValue<Throwable>) {
+        event.consume {
+            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
 
-        viewModel.error.observe(viewLifecycleOwner, { throwable ->
-            Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT).show()
-        })
+        }
+    }
 
-        viewModel.movies.observe(viewLifecycleOwner, {
-            movieAdapter.submitList(it)
-        })
+    private fun onFailure(event: ConsumableValue<String>) {
 
-        viewModel.failure.observe(viewLifecycleOwner, { message ->
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-        })
+       event.consume {
+           Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+       }
+
     }
 
     private fun navigateToMovieDetail(movie: Model.Movie) {
-        val movieDetail = MovieDetail(movie.id,movie.title,movie.overView,movie.posterURL,movie.releaseDate,movie.voteAverage)
-        val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(movieDetail)
+        val movieDetail = MovieDetail(
+            movie.id,
+            movie.title,
+            movie.overView,
+            movie.posterURL,
+            movie.releaseDate,
+            movie.voteAverage
+        )
+        val action =
+            MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(movieDetail)
         findNavController().navigate(action)
     }
 
@@ -127,7 +159,7 @@ class MovieListFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.button_set_filter -> {
-                if(!dateFrom.isNullOrEmpty() || !dateTo.isNullOrEmpty()) {
+                if (!dateFrom.isNullOrEmpty() || !dateTo.isNullOrEmpty()) {
                     val dateFilter = DateFilter(dateFrom, dateTo)
                     viewModel.refresh(dateFilter)
                 }

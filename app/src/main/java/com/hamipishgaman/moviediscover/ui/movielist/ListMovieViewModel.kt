@@ -20,17 +20,17 @@ class ListMovieViewModel @Inject constructor(
     private var movieGetUseCase: MovieGetUseCase
 ) : ViewModel() {
 
-    private val _movies: MutableLiveData<List<Model.Movie>> = MutableLiveData()
-    val movies: LiveData<List<Model.Movie>> = _movies
+    private val _movies: MutableLiveData<ConsumableValue<List<Model.Movie>>> = MutableLiveData()
+    val movies: LiveData<ConsumableValue<List<Model.Movie>>> = _movies
 
-    private val _loading: MutableLiveData<Boolean> = MutableLiveData()
-    val loading: LiveData<Boolean> = _loading
+    private val _loading: MutableLiveData<ConsumableValue<Boolean>> = MutableLiveData()
+    val loading: LiveData<ConsumableValue<Boolean>> = _loading
 
-    private val _failure: MutableLiveData<String> = MutableLiveData()
-    val failure: LiveData<String> = _failure
+    private val _failure: MutableLiveData<ConsumableValue<String>> = MutableLiveData()
+    val failure: LiveData<ConsumableValue<String>> = _failure
 
-    private var _error: MutableLiveData<Throwable> = MutableLiveData()
-    val error: LiveData<Throwable> = _error
+    private var _error: MutableLiveData<ConsumableValue<Throwable>> = MutableLiveData()
+    val error: LiveData<ConsumableValue<Throwable>> = _error
 
 
     init {
@@ -40,7 +40,7 @@ class ListMovieViewModel @Inject constructor(
         refresh(dateFilter)
         viewModelScope.launch {
             movieGetUseCase.execute(Unit).collect {
-                _movies.value = it
+                _movies.value = ConsumableValue(it)
             }
 
         }
@@ -48,23 +48,23 @@ class ListMovieViewModel @Inject constructor(
     }
 
     fun refresh(dateFilter: DateFilter) {
-        _loading.postValue(true)
+        _loading.value = ConsumableValue(true)
         viewModelScope.launch {
             val resourceData = movieRefreshUseCase.execute(dateFilter)
             when (resourceData) {
 
                 is ResultData.Success -> {
-                    _loading.value = false
-                    _movies.value = resourceData.value
+                    _loading.value = ConsumableValue(false)
+                    _movies.value = ConsumableValue(resourceData.value)
 
                 }
                 is ResultData.Failure -> {
-                    _loading.value = false
-                    _failure.value = resourceData.message
+                    _loading.value = ConsumableValue(false)
+                    _failure.value = ConsumableValue(resourceData.message)
                 }
                 is ResultData.Error -> {
-                    _loading.value = false
-                    _error.value = resourceData.throwable
+                    _loading.value = ConsumableValue(false)
+                    _error.value = ConsumableValue(resourceData.throwable)
                 }
                 else -> {
                 }
