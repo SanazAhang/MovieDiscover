@@ -1,9 +1,6 @@
 package com.hamipishgaman.moviediscover.ui.movielist
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.hamipishgaman.moviediscover.domain.model.Model
 import com.hamipishgaman.moviediscover.domain.model.ResultData
 import com.hamipishgaman.moviediscover.domain.usecase.movie.DateFilter
@@ -42,7 +39,6 @@ class ListMovieViewModel @Inject constructor(
             movieGetUseCase.execute(Unit).collect {
                 _movies.value = ConsumableValue(it)
             }
-
         }
 
     }
@@ -66,8 +62,7 @@ class ListMovieViewModel @Inject constructor(
                     _loading.value = ConsumableValue(false)
                     _error.value = ConsumableValue(resourceData.throwable)
                 }
-                else -> {
-                }
+
             }
         }
     }

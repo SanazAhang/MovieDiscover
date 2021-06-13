@@ -38,15 +38,10 @@ class MovieDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
         return binding!!.root
 
     }
-
-    companion object {
-
-        @JvmStatic
-        fun newInstance() = MovieDetailFragment()
-    }
+    
 }

@@ -59,15 +59,23 @@ class MovieListFragment : Fragment(), View.OnClickListener {
 
         }
 
+
         binding!!.buttonFromDate.setOnClickListener(this)
         binding!!.buttonToDate.setOnClickListener(this)
         binding!!.buttonSetFilter.setOnClickListener(this)
 
-        movieAdapter.setOnItemClickListener(object : MovieAdapter.ClickListener {
+//        movieAdapter.setOnItemClickListener(object : MovieAdapter.ClickListener {
+//            override fun onClick(movie: Model.Movie) {
+//                super.onClick(movie)
+//                navigateToMovieDetail(movie)
+//            }
+//        })
+
+        movieAdapter.setOnItemClickListener(object :MovieAdapter.ClickListener {
             override fun onClick(movie: Model.Movie) {
-                super.onClick(movie)
                 navigateToMovieDetail(movie)
             }
+
         })
 
         viewModel.movies.observe(viewLifecycleOwner, ::onGetMovie)
@@ -144,11 +152,6 @@ class MovieListFragment : Fragment(), View.OnClickListener {
         binding = null
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = MovieListFragment()
-    }
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.button_from_date -> {
@@ -171,24 +174,37 @@ class MovieListFragment : Fragment(), View.OnClickListener {
     private fun openCalendar(id: Int) {
         when (id) {
             datePickerFrom -> {
-                DatePickerDialog(
-                    requireContext(),
-                    fromDateSetListener,
-                    calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH)
-                ).show()
+//                DatePickerDialog(
+//                    requireContext(),
+//                    fromDateSetListener,
+//                    calendar.get(Calendar.YEAR),
+//                    calendar.get(Calendar.MONTH),
+//                    calendar.get(Calendar.DAY_OF_MONTH)
+//                ).show()
+                setCalender(fromDateSetListener)
             }
             datePickerTo -> {
-                DatePickerDialog(
-                    requireContext(),
-                    toDateSetListener,
-                    calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH)
-                ).show()
+//                DatePickerDialog(
+//                    requireContext(),
+//                    toDateSetListener,
+//                    calendar.get(Calendar.YEAR),
+//                    calendar.get(Calendar.MONTH),
+//                    calendar.get(Calendar.DAY_OF_MONTH)
+//                ).show()
+                setCalender(toDateSetListener)
             }
         }
+    }
+
+
+    private fun setCalender(calenderListener:DatePickerDialog.OnDateSetListener){
+        DatePickerDialog(
+            requireContext(),
+            calenderListener,
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).show()
     }
 
     private fun updateDateInView(id: Int) {

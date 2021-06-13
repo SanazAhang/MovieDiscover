@@ -11,12 +11,12 @@ import com.hamipishgaman.moviediscover.domain.model.Model
 
 class MovieAdapter:
     ListAdapter<Model.Movie, MovieAdapter.MovieViewHolder>(DiffCallback()) {
-    lateinit var listener: ClickListener
+    private lateinit var listener: ClickListener
 
-    inner class MovieViewHolder(private val binding: ItemMovieCardBinding,var listener: ClickListener) :
+     inner class MovieViewHolder(private val binding: ItemMovieCardBinding) :
         RecyclerView.ViewHolder(binding.root),View.OnClickListener {
 
-        lateinit var movieDetail: Model.Movie
+        private lateinit var movieDetail: Model.Movie
 
         fun bind(movie: Model.Movie) = with(itemView) {
             movieDetail = movie
@@ -40,8 +40,7 @@ class MovieAdapter:
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ),
-            listener
+            )
         )
     }
 
@@ -54,7 +53,7 @@ class MovieAdapter:
     }
 
     interface ClickListener {
-        fun onClick(movie:Model.Movie){}
+        fun onClick(movie:Model.Movie)//{}
     }
 }
 

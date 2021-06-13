@@ -14,6 +14,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class DataBaseModule {
+
     @Singleton
     @Provides
     fun movieDataBase(@ApplicationContext context: Context): AppDataBase =
