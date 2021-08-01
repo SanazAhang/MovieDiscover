@@ -6,16 +6,27 @@ import com.hamipishgaman.moviediscover.domain.model.ResultData
 import com.hamipishgaman.moviediscover.domain.usecase.movie.DateFilter
 import com.hamipishgaman.moviediscover.domain.usecase.movie.MovieGetUseCase
 import com.hamipishgaman.moviediscover.domain.usecase.movie.MovieRefreshUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class ListMovieViewModel @Inject constructor(
+class ListMovieViewModel constructor(
+    state: SavedStateHandle,
     private var movieRefreshUseCase: MovieRefreshUseCase,
     private var movieGetUseCase: MovieGetUseCase
 ) : ViewModel() {
+
+    companion object {
+        const val TO_DATE = "TO_DATE"
+        const val FROM_DATE = "FROM_DATE"
+    }
+
+    private val vMState = state
+
+    private var _dateTo: MutableLiveData<String> = vMState.getLiveData(TO_DATE)
+    private var _dateFrom: MutableLiveData<String> = vMState.getLiveData(FROM_DATE)
+
+    val dateTo: LiveData<String> = _dateTo
+    val dateFrom: LiveData<String> = _dateFrom
 
     private val _movies: MutableLiveData<ConsumableValue<List<Model.Movie>>> = MutableLiveData()
     val movies: LiveData<ConsumableValue<List<Model.Movie>>> = _movies
@@ -41,6 +52,11 @@ class ListMovieViewModel @Inject constructor(
             }
         }
 
+    }
+
+    fun saveDate(key: String, date: String) {
+
+        vMState.set(key, date)
     }
 
     fun refresh(dateFilter: DateFilter) {

@@ -1,10 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -71,15 +70,10 @@ dependencies {
     //test
     testImplementation "junit:junit:$junit"
     androidTestImplementation "androidx.test.ext:junit:$ext_junit"
+    androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core"
 
     implementation "androidx.multidex:multidex:$multidex"
-
-    //Hilt
-    implementation "com.google.dagger:hilt-android:$hilt_android"
-    kapt "com.google.dagger:hilt-compiler:$hilt_android"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_lifecycle_viewmodel"
-    kapt "androidx.hilt:hilt-compiler:$hilt_compiler"
 
     //Room
     implementation "androidx.room:room-runtime:$room_version"
@@ -112,5 +106,8 @@ dependencies {
     //glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    testImplementation "com.google.truth:truth:1.1"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0'
 
 }

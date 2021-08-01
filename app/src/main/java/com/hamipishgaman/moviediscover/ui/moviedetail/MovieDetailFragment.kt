@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.hamipishgaman.moviediscover.databinding.FragmentMovieDetailBinding
 import com.hamipishgaman.moviediscover.domain.model.MovieDetail
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MovieDetailFragment : Fragment() {
     private var binding: FragmentMovieDetailBinding? = null
     private lateinit var movie:MovieDetail

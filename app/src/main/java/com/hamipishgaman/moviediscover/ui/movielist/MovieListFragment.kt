@@ -15,11 +15,10 @@ import com.hamipishgaman.moviediscover.databinding.FragmentMovieListBinding
 import com.hamipishgaman.moviediscover.domain.model.Model
 import com.hamipishgaman.moviediscover.domain.model.MovieDetail
 import com.hamipishgaman.moviediscover.domain.usecase.movie.DateFilter
-import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
-@AndroidEntryPoint
 class MovieListFragment : Fragment(), View.OnClickListener {
 
     private val calendar = Calendar.getInstance()
@@ -85,6 +84,18 @@ class MovieListFragment : Fragment(), View.OnClickListener {
         viewModel.error.observe(viewLifecycleOwner, ::onError)
 
         viewModel.failure.observe(viewLifecycleOwner, ::onFailure)
+
+        viewModel.dateFrom.observe(viewLifecycleOwner,::onsetFromDate)
+        viewModel.dateTo.observe(viewLifecycleOwner,::onsetToDate)
+
+    }
+
+    private fun onsetFromDate(fromDate: String?) {
+        binding?.buttonFromDate?.text = fromDate
+    }
+
+    private fun onsetToDate(toDate: String?) {
+        binding?.buttonToDate?.text = toDate
     }
 
     private fun onGetMovie(event: ConsumableValue<List<Model.Movie>>) {
@@ -216,13 +227,18 @@ class MovieListFragment : Fragment(), View.OnClickListener {
 
                 dateFrom = sdf.format(calendar.time)
                 binding!!.buttonFromDate.text = getString(R.string.button_from_set_date, dateFrom)
+                viewModel.saveDate(ListMovieViewModel.FROM_DATE,dateFrom!!)
 
             }
             datePickerTo -> {
 
                 dateTo = sdf.format(calendar.time)
                 binding!!.buttonToDate.text = getString(R.string.button_to_set_date, dateTo)
+                viewModel.saveDate(ListMovieViewModel.TO_DATE,dateTo!!)
+
             }
         }
     }
 }
+
+
