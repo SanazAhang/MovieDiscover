@@ -8,8 +8,9 @@ import com.hamipishgaman.moviediscover.domain.usecase.movie.MovieGetUseCase
 import com.hamipishgaman.moviediscover.domain.usecase.movie.MovieRefreshUseCase
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ListMovieViewModel constructor(
+class ListMovieViewModel @Inject constructor(
     state: SavedStateHandle,
     private var movieRefreshUseCase: MovieRefreshUseCase,
     private var movieGetUseCase: MovieGetUseCase

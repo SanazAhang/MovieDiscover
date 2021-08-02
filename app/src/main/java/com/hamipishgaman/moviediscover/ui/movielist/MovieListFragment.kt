@@ -17,6 +17,7 @@ import com.hamipishgaman.moviediscover.domain.model.MovieDetail
 import com.hamipishgaman.moviediscover.domain.usecase.movie.DateFilter
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 class MovieListFragment : Fragment(), View.OnClickListener {
@@ -51,24 +52,16 @@ class MovieListFragment : Fragment(), View.OnClickListener {
                 updateDateInView(datePickerTo)
             }
 
-
         binding!!.recyclerViewMovie.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = movieAdapter
 
         }
 
-
         binding!!.buttonFromDate.setOnClickListener(this)
         binding!!.buttonToDate.setOnClickListener(this)
         binding!!.buttonSetFilter.setOnClickListener(this)
 
-//        movieAdapter.setOnItemClickListener(object : MovieAdapter.ClickListener {
-//            override fun onClick(movie: Model.Movie) {
-//                super.onClick(movie)
-//                navigateToMovieDetail(movie)
-//            }
-//        })
 
         movieAdapter.setOnItemClickListener(object :MovieAdapter.ClickListener {
             override fun onClick(movie: Model.Movie) {
@@ -86,6 +79,7 @@ class MovieListFragment : Fragment(), View.OnClickListener {
         viewModel.failure.observe(viewLifecycleOwner, ::onFailure)
 
         viewModel.dateFrom.observe(viewLifecycleOwner,::onsetFromDate)
+
         viewModel.dateTo.observe(viewLifecycleOwner,::onsetToDate)
 
     }
@@ -124,7 +118,6 @@ class MovieListFragment : Fragment(), View.OnClickListener {
     private fun onError(event: ConsumableValue<Throwable>) {
         event.consume {
             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-
         }
     }
 
@@ -181,32 +174,17 @@ class MovieListFragment : Fragment(), View.OnClickListener {
         }
     }
 
-
     private fun openCalendar(id: Int) {
         when (id) {
             datePickerFrom -> {
-//                DatePickerDialog(
-//                    requireContext(),
-//                    fromDateSetListener,
-//                    calendar.get(Calendar.YEAR),
-//                    calendar.get(Calendar.MONTH),
-//                    calendar.get(Calendar.DAY_OF_MONTH)
-//                ).show()
+
                 setCalender(fromDateSetListener)
             }
             datePickerTo -> {
-//                DatePickerDialog(
-//                    requireContext(),
-//                    toDateSetListener,
-//                    calendar.get(Calendar.YEAR),
-//                    calendar.get(Calendar.MONTH),
-//                    calendar.get(Calendar.DAY_OF_MONTH)
-//                ).show()
                 setCalender(toDateSetListener)
             }
         }
     }
-
 
     private fun setCalender(calenderListener:DatePickerDialog.OnDateSetListener){
         DatePickerDialog(

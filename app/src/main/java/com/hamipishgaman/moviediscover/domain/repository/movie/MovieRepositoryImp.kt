@@ -7,6 +7,7 @@ import com.hamipishgaman.moviediscover.domain.model.Model
 import com.hamipishgaman.moviediscover.domain.model.ResultData
 import com.hamipishgaman.moviediscover.domain.model.onSuccess
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class MovieRepositoryImp constructor(
     private val movieRemoteSource: MovieRemoteDataSource,
