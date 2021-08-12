@@ -4,7 +4,11 @@ import com.hamipishgaman.moviediscover.ui.MainActivity
 import dagger.Component
 import kotlin.reflect.jvm.internal.impl.load.java.lazy.SingleModuleClassResolver
 
-@Component(modules = [RepositoryModule::class])
-interface AppComponent{
+@Component(
+    modules = [AppModule::class,
+        RepositoryModule::class,
+        DataSourceModule::class]
+)
+interface AppComponent {
     fun inject(activity: MainActivity)
 }

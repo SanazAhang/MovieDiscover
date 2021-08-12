@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hamipishgaman.moviediscover.MovieApplication
 import com.hamipishgaman.moviediscover.R
 import com.hamipishgaman.moviediscover.databinding.FragmentMovieListBinding
 import com.hamipishgaman.moviediscover.domain.model.Model
@@ -34,6 +35,7 @@ class MovieListFragment : Fragment(), View.OnClickListener {
     private lateinit var toDateSetListener: DatePickerDialog.OnDateSetListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (apllication as MovieApplication).appComponent.inject(this)
         super.onViewCreated(view, savedInstanceState)
         binding!!.progressbar.visibility = View.GONE
         fromDateSetListener =

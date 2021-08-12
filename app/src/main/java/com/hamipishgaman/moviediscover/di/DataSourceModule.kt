@@ -8,7 +8,7 @@ import com.hamipishgaman.moviediscover.data.local.MovieDao
 import com.hamipishgaman.moviediscover.data.network.api.MovieApi
 import dagger.Provides
 
-interface DataSourceModule {
+class DataSourceModule {
 
     @Provides
     fun provideLocalDataSource(movieDao: MovieDao):MovieLocalDataSource {
