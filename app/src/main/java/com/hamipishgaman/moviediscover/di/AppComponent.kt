@@ -7,7 +7,9 @@ import kotlin.reflect.jvm.internal.impl.load.java.lazy.SingleModuleClassResolver
 @Component(
     modules = [AppModule::class,
         RepositoryModule::class,
-        DataSourceModule::class]
+        DataSourceModule::class,
+        NetworkModule::class,
+        PersistenceModule::class]
 )
 interface AppComponent {
     fun inject(activity: MainActivity)

@@ -39,7 +39,7 @@ fun Model.Movie.mapToEntity() = Table.MovieEntity(
 
 
 fun Table.MovieEntity.mapToModel() = Model.Movie(
-    id =id,
+    id = id,
     title = title,
     overView = overView,
     releaseDate = releaseDate,

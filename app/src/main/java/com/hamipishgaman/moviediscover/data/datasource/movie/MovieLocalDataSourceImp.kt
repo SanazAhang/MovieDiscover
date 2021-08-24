@@ -7,8 +7,9 @@ import com.hamipishgaman.moviediscover.data.mapper.mapToModel
 import com.hamipishgaman.moviediscover.domain.model.Model
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class MovieLocalDataSourceImp (private val movieDao: MovieDao):
+class MovieLocalDataSourceImp @Inject constructor(private val movieDao: MovieDao):
     MovieLocalDataSource {
 
     override fun fetch(): Flow<List<Model.Movie>> {

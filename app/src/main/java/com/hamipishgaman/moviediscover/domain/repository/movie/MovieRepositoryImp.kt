@@ -9,7 +9,7 @@ import com.hamipishgaman.moviediscover.domain.model.onSuccess
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class MovieRepositoryImp constructor(
+class MovieRepositoryImp @Inject constructor(
     private val movieRemoteSource: MovieRemoteDataSource,
     private val movieLocalDataSource: MovieLocalDataSource
 ) : MovieRepository {

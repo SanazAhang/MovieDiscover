@@ -6,8 +6,9 @@ import com.hamipishgaman.moviediscover.data.network.api.MovieApi
 import com.hamipishgaman.moviediscover.domain.model.Model
 import com.hamipishgaman.moviediscover.domain.model.ResultData
 import com.hamipishgaman.moviediscover.domain.model.map
+import javax.inject.Inject
 
-class MovieRemoteDataSourceImp (private val movieAPI:MovieApi):
+class MovieRemoteDataSourceImp @Inject constructor(private val movieAPI:MovieApi):
     MovieRemoteDataSource {
     private val apiKey = "c988e17128ee22ab8bda0b967e5653d2"
 
